@@ -1,4 +1,10 @@
 import { authClient } from "@/app/lib/auth-client";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import React from "react";
 
 const DashboardButton = () => {
@@ -7,7 +13,17 @@ const DashboardButton = () => {
   if (isPending || !data?.user) {
     return null;
   }
-  return <div>DashboardButton</div>;
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger className="rounded-lg border border-border/10 p-3 w-full flex items-center justify-between bg-white/5 hover:bg-white/10 overflow-hidden">
+        {data.user.image ? (
+          <Avatar>
+            <AvatarImage src={data.user.image} alt="user image" />
+          </Avatar>
+        ) : null}
+      </DropdownMenuTrigger>
+    </DropdownMenu>
+  );
 };
 
 export default DashboardButton;
