@@ -28,6 +28,10 @@ const DashboardButton = () => {
             className="size-9 mr-3"
           />
         )}
+        <div className="flex flex-col items-left flex-1 min-w-0 overflow-hidden">
+          <p>{data.user.name}</p>
+          <p>{data.user.email}</p>
+        </div>
       </DropdownMenuTrigger>
     </DropdownMenu>
   );
