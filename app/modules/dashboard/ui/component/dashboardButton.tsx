@@ -41,7 +41,7 @@ const DashboardButton = () => {
             className="size-9 mr-3"
           />
         )}
-        <div className="flex flex-col text-left flex-1 min-w-0 overflow-hidden gap-0.5 mr-2 ml-1">
+        <div className="flex flex-col items-start flex-1 min-w-0 overflow-hidden gap-0.5 mr-2 ml-1">
           <p className="truncate w-full text-sm">{data.user.name}</p>
           <p className="truncate w-full text-sm">{data.user.email}</p>
         </div>
@@ -50,7 +50,7 @@ const DashboardButton = () => {
       <DropdownMenuContent align="end" side="right" className="w-72">
         <DropdownMenuLabel>
           <div className="flex flex-col gap-1">
-            <span className="text-medium truncate">{data.user.name}</span>
+            <span className="font-medium truncate">{data.user.name}</span>
             <span className="text-sm text-muted-foreground font-normal truncate">
               {data.user.email}
             </span>
@@ -60,7 +60,7 @@ const DashboardButton = () => {
         <DropdownMenuItem className="cursor-pointer flex justify-between items-center">
           Billing
           <CreditCardIcon className="size-4" />
-        </DropdownMenuItem>{" "}
+        </DropdownMenuItem>
         <DropdownMenuItem
           onClick={onLogout}
           className="cursor-pointer flex justify-between items-center"
