@@ -202,7 +202,7 @@ export default function SignInView() {
           <CardFooter className="flex-col" />
         </Card>
 
-        <div className="hidden md:flex items-center justify-center p-8 md:p-12 bg-gradient-to-b from-green-600 to-green-800 text-white">
+        <div className="hidden md:flex items-center justify-center p-8 md:p-12 bg-gradient-to-b from-sidebar-accent to-sidebar text-white">
           <div className="flex flex-col items-center">
             <Image
               src="/logo.svg"
