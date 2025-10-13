@@ -1,4 +1,5 @@
 import { authClient } from "@/app/lib/auth-client";
+import GenerateAvatar from "@/components/generateImage";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,7 +21,13 @@ const DashboardButton = () => {
           <Avatar>
             <AvatarImage src={data.user.image} alt="user image" />
           </Avatar>
-        ) : null}
+        ) : (
+          <GenerateAvatar
+            seed={data.user.name || "U"}
+            variant="initials"
+            className="size-9 mr-3"
+          />
+        )}
       </DropdownMenuTrigger>
     </DropdownMenu>
   );
