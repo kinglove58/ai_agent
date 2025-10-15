@@ -1,7 +1,16 @@
 import { authClient } from "@/app/lib/auth-client";
 import GenerateAvatar from "@/components/generateImage";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import { Button } from "@/components/ui/button";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -32,10 +41,46 @@ const DashboardButton = () => {
   if (isMobile) {
     return (
       <Drawer>
-        <DrawerTrigger
-          asChild
-          className="rounded-lg border border-border/10 p-3 w-full flex items-center justify-between bg-white/5 hover:bg-white/10 overflow-hidden"
-        >
+        <DrawerTrigger asChild>
+          {/* asChild expects a single React element child — wrap the trigger content in a button */}
+          <button className="rounded-lg border border-border/10 p-3 w-full flex items-center justify-between bg-white/5 hover:bg-white/10 overflow-hidden">
+            {data.user.image ? (
+              <Avatar>
+                <AvatarImage src={data.user.image} alt="user image" />
+              </Avatar>
+            ) : (
+              <GenerateAvatar
+                seed={data.user.name || "U"}
+                variant="initials"
+                className="size-9 mr-3"
+              />
+            )}
+            <div className="flex flex-col text-left flex-1 min-w-0 overflow-hidden gap-0.5 mr-2 ml-1">
+              <p className="truncate w-full text-sm">{data.user.name}</p>
+              <p className="truncate w-full text-sm">{data.user.email}</p>
+            </div>
+            <ChevronDownIcon className="size-5 shrink-0" />
+          </button>
+        </DrawerTrigger>
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle>{data.user.name}</DrawerTitle>
+            <DrawerDescription>{data.user.email}</DrawerDescription>
+          </DrawerHeader>
+          <DrawerFooter>
+            <Button variant="outline">Billing</Button>{" "}
+            <Button variant="outline" onClick={onLogout}>
+              Logout
+            </Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    );
+  }
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="rounded-lg border border-border/10 p-3 w-full flex items-center justify-between bg-white/5 hover:bg-white/10 overflow-hidden">
           {data.user.image ? (
             <Avatar>
               <AvatarImage src={data.user.image} alt="user image" />
@@ -52,38 +97,7 @@ const DashboardButton = () => {
             <p className="truncate w-full text-sm">{data.user.email}</p>
           </div>
           <ChevronDownIcon className="size-5 shrink-0" />
-        </DrawerTrigger>
-        <DrawerContent>
-            <DrawerHeader>
-                <DrawerTitle>{data.user.name}</DrawerTitle>
-                <DrawerDescription>{data.user.email}</DrawerDescription>
-            </DrawerHeader>
-            <DrawerFooter>
-                <p>jesus</p>
-            </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-    );
-  }
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger className="rounded-lg border border-border/10 p-3 w-full flex items-center justify-between bg-white/5 hover:bg-white/10 overflow-hidden">
-        {data.user.image ? (
-          <Avatar>
-            <AvatarImage src={data.user.image} alt="user image" />
-          </Avatar>
-        ) : (
-          <GenerateAvatar
-            seed={data.user.name || "U"}
-            variant="initials"
-            className="size-9 mr-3"
-          />
-        )}
-        <div className="flex flex-col text-left flex-1 min-w-0 overflow-hidden gap-0.5 mr-2 ml-1">
-          <p className="truncate w-full text-sm">{data.user.name}</p>
-          <p className="truncate w-full text-sm">{data.user.email}</p>
-        </div>
-        <ChevronDownIcon className="size-5 shrink-0" />
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" side="right" className="w-72">
         <DropdownMenuLabel>
