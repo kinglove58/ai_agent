@@ -1,8 +1,7 @@
 import { authClient } from "@/app/lib/auth-client";
 import GenerateAvatar from "@/components/generateImage";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
+import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -54,6 +53,15 @@ const DashboardButton = () => {
           </div>
           <ChevronDownIcon className="size-5 shrink-0" />
         </DrawerTrigger>
+        <DrawerContent>
+            <DrawerHeader>
+                <DrawerTitle>{data.user.name}</DrawerTitle>
+                <DrawerDescription>{data.user.email}</DrawerDescription>
+            </DrawerHeader>
+            <DrawerFooter>
+                <p>jesus</p>
+            </DrawerFooter>
+        </DrawerContent>
       </Drawer>
     );
   }
