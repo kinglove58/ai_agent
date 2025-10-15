@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { TRPCReactProvider } from "./trpc/client";
 // @ts-ignore: side-effect CSS import has no type declarations
 import "./globals.css";
 
@@ -19,7 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${inter.className} antialiased`}>
+        <TRPCReactProvider>
+          {children}
+        </TRPCReactProvider>
+      </body>
     </html>
   );
 }
