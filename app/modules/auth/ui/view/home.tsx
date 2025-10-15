@@ -12,17 +12,7 @@ const HomePage = () => {
   const routers = useRouter();
   return (
     <div>
-      <DashboardSidebar />
-      page
-      <Button
-        onClick={() => {
-          authClient.signOut({
-            fetchOptions: { onSuccess: () => routers.push("/sign-in") },
-          });
-        }}
-      >
-        sign out
-      </Button>
+      hello
     </div>
   );
 };

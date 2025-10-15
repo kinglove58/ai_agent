@@ -2,6 +2,7 @@ import { authClient } from "@/app/lib/auth-client";
 import GenerateAvatar from "@/components/generateImage";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -10,6 +11,7 @@ import {
   DropdownMenuContent,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { ChevronDownIcon, CreditCardIcon, LogOutIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -17,6 +19,7 @@ import React from "react";
 const DashboardButton = () => {
   const { data, isPending } = authClient.useSession();
   const router = useRouter();
+  const isMobile = useIsMobile();
 
   const onLogout = () => {
     authClient.signOut({
@@ -26,6 +29,33 @@ const DashboardButton = () => {
 
   if (isPending || !data?.user) {
     return null;
+  }
+  if (isMobile) {
+    return (
+      <Drawer>
+        <DrawerTrigger
+          asChild
+          className="rounded-lg border border-border/10 p-3 w-full flex items-center justify-between bg-white/5 hover:bg-white/10 overflow-hidden"
+        >
+          {data.user.image ? (
+            <Avatar>
+              <AvatarImage src={data.user.image} alt="user image" />
+            </Avatar>
+          ) : (
+            <GenerateAvatar
+              seed={data.user.name || "U"}
+              variant="initials"
+              className="size-9 mr-3"
+            />
+          )}
+          <div className="flex flex-col text-left flex-1 min-w-0 overflow-hidden gap-0.5 mr-2 ml-1">
+            <p className="truncate w-full text-sm">{data.user.name}</p>
+            <p className="truncate w-full text-sm">{data.user.email}</p>
+          </div>
+          <ChevronDownIcon className="size-5 shrink-0" />
+        </DrawerTrigger>
+      </Drawer>
+    );
   }
   return (
     <DropdownMenu>
