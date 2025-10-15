@@ -1,20 +1,13 @@
 "use client";
 
+import { useTRPC } from "@/app/trpc/client";
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
-import { Button } from "@/components/ui/button";
-import { authClient } from "@/app/lib/auth-client";
-import { useRouter } from "next/navigation";
-import { DashboardSidebar } from "@/app/modules/dashboard/ui/component/dashboard-sidebar";
-
 const HomePage = () => {
-  const { data: session } = authClient.useSession();
-  const routers = useRouter();
-  return (
-    <div>
-      hello
-    </div>
-  );
+  const trpc = useTRPC();
+  const { data } = useQuery(trpc.hello.queryOptions({ text: "jesus" }));
+  return <div className="flex flex-col gap-y-4 p-4">{data?.greeting}</div>;
 };
 
 export default HomePage;
