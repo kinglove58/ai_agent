@@ -1,11 +1,11 @@
 import { AlertCircle } from "lucide-react";
 import React from "react";
 
-interface LoadingStateProps {
+interface ErrorStateProps {
   title: string;
   description: string;
 }
-export const ErrorState = ({ title, description }: LoadingStateProps) => {
+export const ErrorState = ({ title, description }: ErrorStateProps) => {
   return (
     <div className="flex py-4 px-8 items-center justify-center">
       <div className="gap-y-6 flex flex-col bg-background shadow-sm rounded-lg items-center justify-center p-10">
