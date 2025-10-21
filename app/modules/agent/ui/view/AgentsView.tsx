@@ -2,7 +2,6 @@
 import { useTRPC } from "@/app/trpc/client";
 import { ErrorState } from "@/components/ErrorState";
 import { LoadingState } from "@/components/LoadingState";
-import { Button } from "@/components/ui/button";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 
 export const AgentsView = () => {
