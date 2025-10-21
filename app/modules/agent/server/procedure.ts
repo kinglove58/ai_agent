@@ -8,3 +8,5 @@ export const agentRouter = createTRPCRouter({
     const data = await db.select().from(agents);
     // await new Promise((resolve) => setTimeout(resolve, 1000));
     return data;
+  }),
+});
