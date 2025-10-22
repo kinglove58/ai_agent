@@ -30,12 +30,13 @@ export const agentRouter = createTRPCRouter({
   create: protectedProcedure
     .input(AgentsInsertSchema)
     .mutation(async ({ input, ctx }) => {
+      const agentData: typeof agents.$inferInsert = {
+        ...input,
+        userId: ctx.auth.user.id,
+      };
       const [createAgent] = await db
         .insert(agents)
-        .values({
-          ...(input as any),
-          userId: ctx.auth.user.id,
-        })
+        .values(agentData)
         .returning();
       return createAgent;
     }),

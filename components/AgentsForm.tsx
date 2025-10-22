@@ -7,7 +7,6 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-import { useRouter } from "next/router";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -42,7 +41,6 @@ export const AgentForm = ({
   initialValues,
 }: AgentsFormProps) => {
   const trpc = useTRPC();
-  //   const router = useRouter();
   const queryClient = useQueryClient();
 
   const createAgent = useMutation(
@@ -128,7 +126,7 @@ export const AgentForm = ({
               onClick={() => onCancel()}
               type="button"
             >
-              cancel
+              Cancel
             </Button>
           )}
           <Button disabled={isPending} type="submit">

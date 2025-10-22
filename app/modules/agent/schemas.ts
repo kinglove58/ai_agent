@@ -2,5 +2,5 @@ import { z } from "zod";
 
 export const AgentsInsertSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
-  instruction: z.string().max(500),
+  instruction: z.string().max(500, { message: "Instruction must be 500 characters or less" }),
 });
