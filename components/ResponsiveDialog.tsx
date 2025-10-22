@@ -9,11 +9,11 @@ import {
 } from "./ui/drawer";
 import {
   Dialog,
+  DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog";
-import { DialogContent } from "@radix-ui/react-dialog";
 
 interface ResponsiveDialogProps {
   title: string;
@@ -51,8 +51,8 @@ export const ResponsiveDialog = ({
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
+        {children}
       </DialogContent>
-      {children}
     </Dialog>
   );
 };
