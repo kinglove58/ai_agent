@@ -22,7 +22,7 @@ export const columns: ColumnDef<AgentGetOne>[] = [
         </div>
         <div className="flex items-center gap-x-2">
           <CornerDownRightIcon className="size-3 text-muted-foreground" />
-          <span className="text-sm truncate max-w-[200px] text-muted-foreground capitalize  ">
+          <span className="text-sm truncate max-w-[200px] text-muted-foreground capitalize">
             {row.original.instruction}
           </span>
         </div>

@@ -12,8 +12,9 @@ export const AgentsView = () => {
   const { data } = useSuspenseQuery(trpc.agents.getMany.queryOptions());
   return (
     <div className="flex flex-col gap-y-4 p-4 flex-1 md:p-8">
-      <DataTable data={data} columns={columns} />
-      {data.length === 0 && (
+      {data.length > 0 ? (
+        <DataTable data={data} columns={columns} />
+      ) : (
         <EmptySpace
           title="No Agents Found"
           description="You have not created any agents yet. Click the button above to create your first agent."

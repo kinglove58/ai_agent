@@ -1,6 +1,5 @@
 import { AlertCircle } from "lucide-react";
 import Image from "next/image";
-import React from "react";
 
 interface EmptySpaceProps {
   title: string;
