@@ -5,11 +5,11 @@ import { useTRPC } from "@/app/trpc/client";
 import { EmptySpace } from "@/components/EmptySpace";
 import { ErrorState } from "@/components/ErrorState";
 import { LoadingState } from "@/components/LoadingState";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const AgentsView = () => {
   const trpc = useTRPC();
-  const { data } = useSuspenseQuery(trpc.agents.getMany.queryOptions());
+  const { data } = useSuspenseQuery(trpc.agents.getMany.queryOptions({}));
   return (
     <div className="flex flex-col gap-y-4 p-4 flex-1 md:p-8">
       {data.length > 0 ? (
