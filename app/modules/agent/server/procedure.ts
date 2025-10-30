@@ -45,11 +45,11 @@ export const agentRouter = createTRPCRouter({
       })
     )
     .query(async ({ ctx, input }) => {
-      const [search, page, pageSize] = input;
+      const { search, page, pageSize } = input;
       const data = await db
         .select({
           ...getTableColumns(agents),
-          meetingCount: sql<number>`6`,
+          meetingCount: sql<number>`5`,
         })
         .from(agents)
         .where(
