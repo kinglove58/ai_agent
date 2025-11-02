@@ -13,7 +13,7 @@ const DataPagination = ({
   return (
     <div className="flex items-center justify-between">
       <div className="flex-1 text-sm text-muted-foreground">
-        page {page} of {totalPages || 1}
+        Page {page} of {totalPages || 1}
       </div>
       <div className="flex gap-x-2 justify-end items-center">
         <Button

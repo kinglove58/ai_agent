@@ -76,11 +76,11 @@ export const agentRouter = createTRPCRouter({
 
       const totalPages = Math.ceil(total.count / pageSize);
 
-      return{
+      return {
         items: data,
         total: total.count,
         totalPages,
-      }
+      };
     }),
 
   create: protectedProcedure

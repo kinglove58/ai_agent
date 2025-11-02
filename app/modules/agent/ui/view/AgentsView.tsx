@@ -20,11 +20,13 @@ export const AgentsView = () => {
   return (
     <div className="flex flex-col gap-y-4 p-4 flex-1 md:p-8">
       <DataTable data={data.items} columns={columns} />
-      <DataPagination
-        page={filters.page}
-        totalPages={data.totalPages}
-        onPageChange={(newPage) => setFilters({ page: newPage })}
-      />
+      {data.totalPages > 1 && (
+        <DataPagination
+          page={filters.page}
+          totalPages={data.totalPages}
+          onPageChange={(newPage) => setFilters({ page: newPage })}
+        />
+      )}
       {data.items.length === 0 && (
         <EmptySpace
           title="No Agents Found"
