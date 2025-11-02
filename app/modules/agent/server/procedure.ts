@@ -1,7 +1,6 @@
 import { db } from "@/app/db";
 import { agents } from "@/app/db/schema";
 import {
-  baseProcedure,
   createTRPCRouter,
   protectedProcedure,
 } from "@/app/trpc/init";
@@ -16,8 +15,7 @@ import {
 } from "@/app/constants";
 
 export const agentRouter = createTRPCRouter({
-  // TODO: change to protectedProcedure if needed
-  getOne: protectedProcedure
+   getOne: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ input }) => {
       const [existingAgent] = await db
@@ -28,8 +26,6 @@ export const agentRouter = createTRPCRouter({
         })
         .from(agents)
         .where(eq(agents.id, input.id));
-      // .limit(1);
-      // await new Promise((resolve) => setTimeout(resolve, 1000));
       return existingAgent;
     }),
   getMany: protectedProcedure
