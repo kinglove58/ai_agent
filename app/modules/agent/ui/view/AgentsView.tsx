@@ -8,8 +8,10 @@ import { LoadingState } from "@/components/LoadingState";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import UseAgentsFilters from "../../hooks/UseAgentsFilters";
 import DataPagination from "@/components/DataPagination";
+import { useRouter } from "next/navigation";
 
 export const AgentsView = () => {
+  const router = useRouter();
   const [filters, setFilters] = UseAgentsFilters();
   const trpc = useTRPC();
   const { data } = useSuspenseQuery(
@@ -19,7 +21,11 @@ export const AgentsView = () => {
   );
   return (
     <div className="flex flex-col gap-y-4 p-4 flex-1 md:p-8">
-      <DataTable data={data.items} columns={columns} />
+      <DataTable
+        data={data.items}
+        columns={columns}
+        onRowClick={(row) => router.push(`/agents/${row.id}`)}
+      />
       {data.totalPages > 1 && (
         <DataPagination
           page={filters.page}

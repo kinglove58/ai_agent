@@ -1,9 +1,6 @@
 import { db } from "@/app/db";
 import { agents } from "@/app/db/schema";
-import {
-  createTRPCRouter,
-  protectedProcedure,
-} from "@/app/trpc/init";
+import { createTRPCRouter, protectedProcedure } from "@/app/trpc/init";
 import { AgentsInsertSchema } from "../schemas";
 import { z } from "zod";
 import { and, count, desc, eq, getTableColumns, ilike, sql } from "drizzle-orm";
@@ -13,11 +10,12 @@ import {
   MAX_PAGE_SIZE,
   MIN_PAGE_SIZE,
 } from "@/app/constants";
+import { TRPCError } from "@trpc/server";
 
 export const agentRouter = createTRPCRouter({
-   getOne: protectedProcedure
+  getOne: protectedProcedure
     .input(z.object({ id: z.string() }))
-    .query(async ({ input }) => {
+    .query(async ({ input, ctx }) => {
       const [existingAgent] = await db
         .select({
           // TODO: meetingCount is hardcoded for now, replace with real count later
@@ -25,7 +23,17 @@ export const agentRouter = createTRPCRouter({
           meetingCount: sql<number>`5`,
         })
         .from(agents)
-        .where(eq(agents.id, input.id));
+        .where(
+          and(eq(agents.id, input.id), eq(agents.userId, ctx.auth.user.id))
+        );
+
+      if (!existingAgent) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: `Agent with id ${input.id} not found`,
+        });
+      }
+
       return existingAgent;
     }),
   getMany: protectedProcedure
