@@ -58,7 +58,7 @@ export const AgentForm = ({
         onSuccess();
       },
       onError: (error) => {
-        toast.error(error.message || "There was an error creating the agent.");
+        toast.error(error.message || "There was an error updating the agent.");
         // TODO: check if error code is forbidden and redirect to /upgrade
       },
     })
@@ -83,7 +83,7 @@ export const AgentForm = ({
         onSuccess();
       },
       onError: (error) => {
-        toast.error(error.message || "There was an error creating the agent.");
+        toast.error(error.message || "There was an error updating the agent.");
         // TODO: check if error code is forbidden and redirect to /upgrade
       },
     })
@@ -101,7 +101,7 @@ export const AgentForm = ({
   const isPending = createAgent.isPending || updateAgent.isPending;
 
   const onSubmit = (values: z.infer<typeof AgentsInsertSchema>) => {
-    if (isEdit) {
+    if (isEdit && initialValues) {
       updateAgent.mutate({ ...values, id: initialValues.id });
     } else {
       createAgent.mutate(values);

@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useConfirm } from "../../hooks/UseConfirm";
 import { useState } from "react";
-import { UpdateAgentsDialogu } from "@/app/modules/dashboard/ui/component/UpdateAgentsDialogu";
+import { UpdateAgentsDialog } from "@/app/modules/dashboard/ui/component/UpdateAgentsDialogu";
 
 interface Props {
   agentId: string;
@@ -61,7 +61,7 @@ const AgentIdView = ({ agentId }: Props) => {
   return (
     <>
       <RemoveConfirmation />
-      <UpdateAgentsDialogu
+      <UpdateAgentsDialog
         open={updateAgentDialogue}
         onOpenChange={setUpdateAgentDialogue}
         initialValues={data}
