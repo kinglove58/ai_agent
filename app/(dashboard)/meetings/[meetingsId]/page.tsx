@@ -1,9 +1,12 @@
 import React from 'react'
 
-const page = () => {
+const MeetingsPage = () => {
   return (
-    <div>page</div>
-  )
+    <div>
+      <h1>Meeting Details</h1>
+      <p>This page is under construction. Please check back later.</p>
+    </div>
+  );
 }
 
-export default page
+export default MeetingsPage;

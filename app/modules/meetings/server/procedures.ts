@@ -15,7 +15,7 @@ export const meetingsRouter = createTRPCRouter({
   getOne: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ input, ctx }) => {
-      const [existingMeetings] = await db
+      const [existingMeeting] = await db
         .select({
           // TODO: meetingCount is hardcoded for now, replace with real count later
           ...getTableColumns(meetings),
@@ -25,14 +25,14 @@ export const meetingsRouter = createTRPCRouter({
           and(eq(meetings.id, input.id), eq(meetings.userId, ctx.auth.user.id))
         );
 
-      if (!existingMeetings) {
+      if (!existingMeeting) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: `Meeting with id ${input.id} not found`,
         });
       }
 
-      return existingMeetings;
+      return existingMeeting;
     }),
   getMany: protectedProcedure
     .input(
@@ -67,11 +67,11 @@ export const meetingsRouter = createTRPCRouter({
         .select({
           count: count(),
         })
-        .from(agents)
+        .from(meetings)
         .where(
           and(
             eq(agents.userId, ctx.auth.user.id),
-            search ? ilike(agents.name, `%${input.search}%`) : undefined
+            search ? ilike(meetings.name, `%${input.search}%`) : undefined
           )
         );
 
