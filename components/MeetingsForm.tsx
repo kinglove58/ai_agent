@@ -1,4 +1,3 @@
-import { AgentGetOne } from "@/app/modules/agent/types";
 import { useTRPC } from "@/app/trpc/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -21,11 +20,12 @@ import { CommandSelect } from "./CommandSelect";
 import GenerateAvatar from "./generateImage";
 import { Input } from "./ui/input";
 import { NewAgentsDialogu } from "@/app/modules/dashboard/ui/component/NewAgentsDialogu";
+import { MeetingsGetOne } from "@/app/modules/meetings/types";
 
 interface MeetingsFormProps {
   onSuccess: (id?: string) => void;
   onCancel: () => void;
-  initialValues?: AgentGetOne;
+  initialValues?: MeetingsGetOne;
 }
 
 const MeetingsForm = () => {
@@ -89,7 +89,9 @@ export const MeetingForm = ({
         onSuccess();
       },
       onError: (error) => {
-        toast.error(error.message || "There was an error updating the meeting.");
+        toast.error(
+          error.message || "There was an error updating the meeting."
+        );
         // TODO: check if error code is forbidden and redirect to /upgrade
       },
     })
