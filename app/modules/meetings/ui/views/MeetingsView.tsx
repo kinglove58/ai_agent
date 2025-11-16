@@ -3,7 +3,6 @@
 import { useTRPC } from "@/app/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import React from "react";
-import { json } from "stream/consumers";
 
 const MeetingsView = () => {
   const trpc = useTRPC();

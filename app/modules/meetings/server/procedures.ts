@@ -27,7 +27,7 @@ export const meetingsRouter = createTRPCRouter({
       if (!updatedMeeting) {
         throw new TRPCError({
           code: "NOT_FOUND",
-          message: `Meeting with id ${input.id} not exit`,
+          message: `Meeting with id ${input.id} does not exist`,
         });
       }
       return updatedMeeting;
@@ -42,7 +42,7 @@ export const meetingsRouter = createTRPCRouter({
           userId: ctx.auth.user.id,
         })
         .returning();
-      //TODO: create a strem call
+      //TODO: create a stream call
       return createMeeting;
     }),
   getOne: protectedProcedure
@@ -100,11 +100,11 @@ export const meetingsRouter = createTRPCRouter({
         .select({
           count: count(),
         })
-        .from(agents)
+        .from(meetings)
         .where(
           and(
-            eq(agents.userId, ctx.auth.user.id),
-            search ? ilike(agents.name, `%${input.search}%`) : undefined
+            eq(meetings.userId, ctx.auth.user.id),
+            search ? ilike(meetings.name, `%${input.search}%`) : undefined
           )
         );
 

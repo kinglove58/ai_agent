@@ -63,7 +63,7 @@ export const MeetingForm = ({
       },
       onError: (error) => {
         toast.error(
-          error.message || "There was an error updating the Meeting."
+          error.message || "There was an error creating the Meeting."
         );
         // TODO: check if error code is forbidden and redirect to /upgrade
       },
@@ -77,10 +77,10 @@ export const MeetingForm = ({
           trpc.meetings.getMany.queryOptions({})
         );
 
-        // Invalidate the single agent detail page cache
+        // Invalidate the single meeting detail page cache
         if (initialValues?.id) {
           await queryClient.invalidateQueries(
-            trpc.agents.getOne.queryOptions({ id: initialValues.id })
+            trpc.meetings.getOne.queryOptions({ id: initialValues.id })
           );
         }
 
@@ -89,7 +89,7 @@ export const MeetingForm = ({
         onSuccess();
       },
       onError: (error) => {
-        toast.error(error.message || "There was an error updating the agent.");
+        toast.error(error.message || "There was an error updating the meeting.");
         // TODO: check if error code is forbidden and redirect to /upgrade
       },
     })
@@ -99,7 +99,7 @@ export const MeetingForm = ({
     resolver: zodResolver(MeetingsInsertSchema),
     defaultValues: {
       name: initialValues?.name || "",
-      agentId: initialValues?.id ?? "",
+      agentId: initialValues?.agentId ?? "",
     },
   });
 
@@ -131,7 +131,7 @@ export const MeetingForm = ({
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder="e.g. civil Engineer consultant"
+                    placeholder="e.g. civil engineer consultant"
                   />
                 </FormControl>
                 <FormMessage />
@@ -168,7 +168,7 @@ export const MeetingForm = ({
                   />
                 </FormControl>
                 <FormDescription>
-                  Not found what you&apost;re looking for?{" "}
+                  Not found what you&apos;re looking for?{" "}
                   <button
                     type="button"
                     className="text-primary hover:underline"

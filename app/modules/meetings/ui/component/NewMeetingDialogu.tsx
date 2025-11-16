@@ -3,15 +3,15 @@ import { ResponsiveDialog } from "@/components/ResponsiveDialog";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-interface NewAgentsDialoguProps {
+interface NewMeetingsDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-export const NewMeetingsDialogu = ({
+export const NewMeetingsDialog = ({
   open,
   onOpenChange,
-}: NewAgentsDialoguProps) => {
+}: NewMeetingsDialogProps) => {
   const router = useRouter();
   return (
     <ResponsiveDialog
