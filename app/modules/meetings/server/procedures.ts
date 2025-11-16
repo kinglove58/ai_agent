@@ -10,8 +10,41 @@ import {
   MIN_PAGE_SIZE,
 } from "@/app/constants";
 import { TRPCError } from "@trpc/server";
+import { MeetingsInsertSchema, meetingsUpdateSchema } from "../Schemas";
 
 export const meetingsRouter = createTRPCRouter({
+  update: protectedProcedure
+    .input(meetingsUpdateSchema)
+    .mutation(async ({ ctx, input }) => {
+      const [updatedMeeting] = await db
+        .update(meetings)
+        .set((({ id, ...rest }) => rest)(input))
+        .where(
+          and(eq(meetings.id, input.id), eq(meetings.userId, ctx.auth.user.id))
+        )
+        .returning();
+
+      if (!updatedMeeting) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: `Meeting with id ${input.id} does not exist`,
+        });
+      }
+      return updatedMeeting;
+    }),
+  create: protectedProcedure
+    .input(MeetingsInsertSchema)
+    .mutation(async ({ input, ctx }) => {
+      const [createMeeting] = await db
+        .insert(meetings)
+        .values({
+          ...(input as any),
+          userId: ctx.auth.user.id,
+        })
+        .returning();
+      //TODO: create a stream call
+      return createMeeting;
+    }),
   getOne: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ input, ctx }) => {
@@ -67,11 +100,11 @@ export const meetingsRouter = createTRPCRouter({
         .select({
           count: count(),
         })
-        .from(agents)
+        .from(meetings)
         .where(
           and(
-            eq(agents.userId, ctx.auth.user.id),
-            search ? ilike(agents.name, `%${input.search}%`) : undefined
+            eq(meetings.userId, ctx.auth.user.id),
+            search ? ilike(meetings.name, `%${input.search}%`) : undefined
           )
         );
 
