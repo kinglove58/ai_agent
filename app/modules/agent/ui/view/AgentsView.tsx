@@ -1,6 +1,5 @@
 "use client";
 import { columns } from "@/app/modules/dashboard/ui/component/columns";
-import { DataTable } from "@/app/modules/dashboard/ui/component/data-table";
 import { useTRPC } from "@/app/trpc/client";
 import { EmptySpace } from "@/components/EmptySpace";
 import { ErrorState } from "@/components/ErrorState";
@@ -9,6 +8,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import UseAgentsFilters from "../../hooks/UseAgentsFilters";
 import DataPagination from "@/components/DataPagination";
 import { useRouter } from "next/navigation";
+import { DataTable } from "@/components/data-table";
 
 export const AgentsView = () => {
   const router = useRouter();
