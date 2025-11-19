@@ -13,7 +13,7 @@ const MeetingsView = () => {
 
   return (
     <div className="flex-1 pb-4 px-4 md:px-4 flex-col gap-y-4 ">
-      <DataTable data={data?.items} columns={columns} />
+      <DataTable data={data.items} columns={columns} />
       {data.items.length === 0 && (
         <EmptySpace
           title="No Meetings Found"

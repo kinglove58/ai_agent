@@ -11,7 +11,7 @@ import {
 } from "@/app/constants";
 import { TRPCError } from "@trpc/server";
 import { MeetingsInsertSchema, meetingsUpdateSchema } from "../Schemas";
-import { number } from "better-auth";
+
 
 export const meetingsRouter = createTRPCRouter({
   update: protectedProcedure

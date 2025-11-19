@@ -102,12 +102,12 @@ export const columns: ColumnDef<MeetingsGetMany[number]>[] = [
     cell: ({ row }) => (
       <Badge
         variant="outline"
-        className="capitalize flex items-center gap-x-2 [&>svg]:size-4 "  
+        className="capitalize flex items-center gap-x-2 [&>svg]:size-4"
       >
         <ClockFadingIcon className="text-blue-700" />
         {row.original.duration
           ? formatDuration(row.original.duration)
-          : "NO Duration"}
+          : "No Duration"}
       </Badge>
     ),
   },
