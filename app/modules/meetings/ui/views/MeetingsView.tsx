@@ -25,7 +25,7 @@ const MeetingsView = () => {
       <DataTable
         data={data.items}
         columns={columns}
-        onRowClick={(row) => router.push(`/meeting/${row.id}`)}
+        onRowClick={(row) => router.push(`/meetings/${row.id}`)}
       />
       <DataPagination
         page={filter.page}
