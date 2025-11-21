@@ -36,17 +36,16 @@ const MeetingListHeader = () => {
           </Button>
         </div>
         <ScrollArea>
-         
-            <div className="flex gap-x-2 items-center p-1">
-              <MeetingsSearchFilter />
-              <StatusFilter />
-              <AgentIdFilter />
-              {isAnyFilterModified && (
-                <Button variant="outline" onClick={clearFilters}>
-                  <XCircleIcon className="size-4" /> clear
-                </Button>
-              )}
-            </div>
+          <div className="flex gap-x-2 items-center p-1">
+            <MeetingsSearchFilter />
+            <StatusFilter />
+            <AgentIdFilter />
+            {isAnyFilterModified && (
+              <Button variant="outline" onClick={clearFilters}>
+                <XCircleIcon className="size-4" /> clear
+              </Button>
+            )}
+          </div>
           <Scrollbar orientation="horizontal" />
         </ScrollArea>
       </div>
