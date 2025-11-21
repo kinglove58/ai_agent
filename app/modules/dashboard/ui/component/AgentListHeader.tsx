@@ -6,6 +6,7 @@ import { NewAgentsDialogu } from "./NewAgentsDialogu";
 import UseAgentsFilters from "@/app/modules/agent/hooks/UseAgentsFilters";
 import AgentSearchFilter from "@/components/AgentSearchFilter";
 import { DEFAULT_PAGE } from "@/app/constants";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 const AgentListHeader = () => {
   const [filters, setFilters] = UseAgentsFilters();
@@ -27,6 +28,7 @@ const AgentListHeader = () => {
             Create New Agent
           </Button>
         </div>
+        <ScrollArea>
         <div className="flex gap-x-2 items-center p-1">
           <AgentSearchFilter />
           {isAnyFilterModified && (
@@ -36,6 +38,8 @@ const AgentListHeader = () => {
             </Button>
           )}
         </div>
+        <ScrollBar orientation="horizontal" />
+        </ScrollArea>
       </div>
     </>
   );
