@@ -13,8 +13,33 @@ import { TRPCError } from "@trpc/server";
 import { MeetingsInsertSchema, meetingsUpdateSchema } from "../Schemas";
 import { number } from "better-auth";
 import { MeetingStatus } from "../types";
+import { StreamVideo } from "@/app/lib/streamVideo";
+import { GenerateAvatarUri } from "@/app/lib/avatar";
 
 export const meetingsRouter = createTRPCRouter({
+  generateToken: protectedProcedure.mutation(async ({ ctx }) => {
+    await StreamVideo.upsertUsers([
+      {
+        id: ctx.auth.user.id,
+        name: ctx.auth.user.name,
+        role: "admin",
+        image:
+          ctx.auth.user.image ??
+          GenerateAvatarUri({ seed: ctx.auth.user.name, variant: "initials" }),
+      },
+    ]);
+
+    const expirationTime = Math.floor(Date.now() / 1000) + 3600;
+    const issuedAt = Math.floor(Date.now() / 1000) - 60;
+
+    const token = StreamVideo.generateUserToken({
+      user_id: ctx.auth.user.id,
+      exp: expirationTime,
+      validity_in_seconds: issuedAt,
+    });
+
+    return token;
+  }),
   update: protectedProcedure
     .input(meetingsUpdateSchema)
     .mutation(async ({ ctx, input }) => {
@@ -63,6 +88,7 @@ export const meetingsRouter = createTRPCRouter({
         })
         .returning();
       //TODO: create a stream call
+      
       return createMeeting;
     }),
   getOne: protectedProcedure
