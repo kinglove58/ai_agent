@@ -11,10 +11,47 @@ import {
 } from "@/app/constants";
 import { TRPCError } from "@trpc/server";
 import { MeetingsInsertSchema, meetingsUpdateSchema } from "../Schemas";
-import { number } from "better-auth";
 import { MeetingStatus } from "../types";
+import { StreamVideo } from "@/app/lib/streamVideo";
+import { GenerateAvatarUri } from "@/app/lib/avatar";
 
 export const meetingsRouter = createTRPCRouter({
+  generateToken: protectedProcedure.mutation(async ({ ctx }) => {
+    try {
+      await StreamVideo.upsertUsers([
+        {
+          id: ctx.auth.user.id,
+          name: ctx.auth.user.name,
+          role: "admin",
+          image:
+            ctx.auth.user.image ??
+            GenerateAvatarUri({
+              seed: ctx.auth.user.name,
+              variant: "initials",
+            }),
+        },
+      ]);
+    } catch (error) {
+      console.error("Error upserting user to Stream:", error);
+      // Continue anyway - token can still be generated
+    }
+
+    const token = StreamVideo.generateUserToken({
+      user_id: ctx.auth.user.id,
+      validity_in_seconds: 3600,
+    });
+
+    // Ensure token is a string
+    if (typeof token !== "string") {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Failed to generate valid token",
+      });
+    }
+
+    console.log(`[Stream] Generated token for user ${ctx.auth.user.id}`);
+    return token;
+  }),
   update: protectedProcedure
     .input(meetingsUpdateSchema)
     .mutation(async ({ ctx, input }) => {
@@ -55,7 +92,7 @@ export const meetingsRouter = createTRPCRouter({
   create: protectedProcedure
     .input(MeetingsInsertSchema)
     .mutation(async ({ input, ctx }) => {
-      const [createMeeting] = await db
+      const [createdMeeting] = await db
         .insert(meetings)
         .values({
           ...(input as any),
@@ -63,7 +100,53 @@ export const meetingsRouter = createTRPCRouter({
         })
         .returning();
       //TODO: create a stream call
-      return createMeeting;
+      const call = StreamVideo.video.call("default", createdMeeting.id);
+      await call.create({
+        data: {
+          created_by_id: ctx.auth.user.id,
+          custom: {
+            meetingId: createdMeeting.id,
+            meetingName: createdMeeting.name,
+          },
+          settings_override: {
+            transcription: {
+              language: "en",
+              mode: "auto-on",
+              closed_caption_mode: "auto-on",
+            },
+            recording: {
+              mode: "auto-on",
+              quality: "1080p",
+            },
+          },
+        },
+      });
+
+      const [existingAgent] = await db
+        .select()
+        .from(agents)
+        .where(eq(agents.id, createdMeeting.agentId));
+
+      if (!existingAgent) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "agent not found",
+        });
+      }
+
+      await StreamVideo.upsertUsers([
+        {
+          id: existingAgent.id,
+          name: existingAgent.name,
+          role: "user",
+          image: GenerateAvatarUri({
+            seed: existingAgent.name,
+            variant: "botttsNeutral",
+          }),
+        },
+      ]);
+
+      return createdMeeting;
     }),
   getOne: protectedProcedure
     .input(z.object({ id: z.string() }))
