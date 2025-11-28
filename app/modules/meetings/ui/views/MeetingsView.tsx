@@ -21,22 +21,25 @@ const MeetingsView = () => {
   );
 
   return (
-    <div className="flex-1 pb-4 px-4 md:px-4 flex-col gap-y-4 ">
-      <DataTable
-        data={data.items}
-        columns={columns}
-        onRowClick={(row) => router.push(`/meetings/${row.id}`)}
-      />
-      <DataPagination
-        page={filter.page}
-        totalPages={data.totalPages}
-        onPageChange={(page) => setFilter({ page })}
-      />
-      {data.items.length === 0 && (
+    <div className="flex-1 pb-4 px-4 md:px-4 flex flex-col gap-y-4">
+      {data.items.length === 0 ? (
         <EmptySpace
           title="No Meetings Found"
           description="You have not created any meetings yet. Click the button above to create your first meeting."
         />
+      ) : (
+        <>
+          <DataTable
+            data={data.items}
+            columns={columns}
+            onRowClick={(row) => router.push(`/meetings/${row.id}`)}
+          />
+          <DataPagination
+            page={filter.page}
+            totalPages={data.totalPages}
+            onPageChange={(page) => setFilter({ page })}
+          />
+        </>
       )}
     </div>
   );
