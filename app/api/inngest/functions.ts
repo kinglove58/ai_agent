@@ -81,11 +81,22 @@ export const meetingsProcessing = inngest.createFunction(
       "summrize the following transcript:" +
         JSON.stringify(transcriptWithSpeakers)
     );
+
+    if (!output || output.length === 0) {
+      throw new Error("Summarizer returned empty output");
+    }
+
     await step.run("save-summary", async () => {
+      const summary = (output[0] as TextMessage).content as string;
+
+      if (!summary) {
+        throw new Error("Summary content is empty");
+      }
+
       await db
         .update(meetings)
         .set({
-          summary: (output[0] as TextMessage).content as string,
+          summary: summary,
           status: "completed",
         })
         .where(eq(meetings.id, event.data.meetingId));
