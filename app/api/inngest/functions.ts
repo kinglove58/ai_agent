@@ -6,10 +6,10 @@ import { createAgent, openai, TextMessage } from "@inngest/agent-kit";
 import { eq, inArray } from "drizzle-orm";
 import JSONL from "jsonl-parse-stringify";
 
-const summerizer = createAgent({
-  name: "summerizer",
+const summarizer = createAgent({
+  name: "summarizer",
   system:
-    `You are an expert summarizer. You write readable, you used concise, simple content. You are given a transcript of a meeting and you need to summarize it.
+    `You are an expert summarizer. You write readable, concise, simple content. You are given a transcript of a meeting and you need to summarize it.
 
 Use the following markdown structure for every output:
 
@@ -77,7 +77,7 @@ export const meetingsProcessing = inngest.createFunction(
         };
       });
     });
-    const { output } = await summerizer.run(
+    const { output } = await summarizer.run(
       "summrize the following transcript:" +
         JSON.stringify(transcriptWithSpeakers)
     );
