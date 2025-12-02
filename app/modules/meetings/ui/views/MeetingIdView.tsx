@@ -12,11 +12,12 @@ import MeetingsIdViewHeader from "./MeetingIdViewHeader";
 import { useRouter } from "next/navigation";
 import { useConfirm } from "@/app/modules/agent/hooks/UseConfirm";
 import { useState } from "react";
-import { UpdateMeetingsDialog } from "../component/UpdateMeetingDialogu copy";
 import UpcomingState from "../component/UpcomingState";
 import ActiveState from "../component/ActiveState";
 import CancelledState from "../component/CancelledState";
 import ProcessingState from "../component/ProcessingState";
+import { CompletedState } from "../component/CompletedState";
+import { UpdateMeetingsDialog } from "../component/UpdateMeetingDialogu";
 
 interface Props {
   meetingId: string;
@@ -43,7 +44,7 @@ export const MeetingIdView = ({ meetingId }: Props) => {
       },
     })
   );
-  const [updatMeetingDialoguOpen, setUpdatMeetingDialoguOpen] = useState(false);
+  const [updateMeetingDialogOpen, setUpdateMeetingDialogOpen] = useState(false);
   const handleRemoveMeeting = async () => {
     const ok = await confirmRemove();
 
@@ -62,8 +63,8 @@ export const MeetingIdView = ({ meetingId }: Props) => {
     <>
       <RemoveConfirmation />
       <UpdateMeetingsDialog
-        open={updatMeetingDialoguOpen}
-        onOpenChange={setUpdatMeetingDialoguOpen}
+        open={updateMeetingDialogOpen}
+        onOpenChange={setUpdateMeetingDialogOpen}
         initialValues={data}
       />
       <div className="flex flex-col gap-y-4 py-4 px-4 flex-1 md:px-8">
@@ -71,7 +72,7 @@ export const MeetingIdView = ({ meetingId }: Props) => {
           meetingId={meetingId}
           meetingName={data.name}
           onEdit={() => {
-            setUpdatMeetingDialoguOpen(true);
+            setUpdateMeetingDialogOpen(true);
           }}
           onRemove={handleRemoveMeeting}
         />
@@ -85,7 +86,7 @@ export const MeetingIdView = ({ meetingId }: Props) => {
           />
         )}
         {isProcessing && <ProcessingState />}
-        {isCompleted && <div>completed.</div>}
+        {isCompleted && <CompletedState data={data} />}
       </div>
     </>
   );

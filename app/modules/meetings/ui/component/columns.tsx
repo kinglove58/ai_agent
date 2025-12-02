@@ -9,23 +9,13 @@ import {
   ClockArrowUpIcon,
   ClockFadingIcon,
   CornerDownRightIcon,
-  Icon,
-  Loader2Icon,
-  LoaderIcon,
-  VideoIcon,
+   LoaderIcon,
 } from "lucide-react";
 import { MeetingsGetMany } from "../../types";
-import humanizeDuration from "humanize-duration";
 import { format } from "date-fns";
-import { cn } from "@/lib/utils";
+import { cn, formatDuration } from "@/lib/utils";
 
-function formatDuration(seconds: number) {
-  return humanizeDuration(seconds * 1000, {
-    largest: 2,
-    round: true,
-    units: ["h", "m", "s"],
-  });
-}
+
 
 const statusIconMap = {
   upcoming: ClockArrowUpIcon,
