@@ -130,10 +130,16 @@ export const CompletedState = ({ data }: Props) => {
                     <strong className="font-semibold" {...props} />
                   ),
                   code: (props) => (
-                    <code className="bg-gray-100 rounded px-1 py-0.5 text-sm font-mono" {...props} />
+                    <code
+                      className="bg-gray-100 rounded px-1 py-0.5 text-sm font-mono"
+                      {...props}
+                    />
                   ),
                   blockquote: (props) => (
-                    <blockquote className="border-l-4 border-muted pl-4 italic my-4" {...props} />
+                    <blockquote
+                      className="border-l-4 border-muted pl-4 italic my-4"
+                      {...props}
+                    />
                   ),
                 }}
               >
