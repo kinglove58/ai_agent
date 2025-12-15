@@ -20,6 +20,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import DashboardButton from "./dashboardButton";
+import { DashboardTrial } from "./DashboardTrial";
 
 const firstSession = [
   {
@@ -38,7 +39,7 @@ const secondSession = [
   {
     icon: StarIcon,
     label: "upgrades",
-    href: "/upgrades",
+    href: "/upgrade",
   },
 ];
 
@@ -116,6 +117,7 @@ export const DashboardSidebar = () => {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
+        <DashboardTrial />
         <DashboardButton />
       </SidebarFooter>
     </Sidebar>
