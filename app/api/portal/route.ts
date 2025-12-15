@@ -11,10 +11,7 @@ export async function POST(req: NextRequest) {
     });
 
     if (!session) {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     console.log("Creating customer portal for user:", session.user.id);
@@ -42,11 +39,11 @@ export async function POST(req: NextRequest) {
     console.error("Portal creation failed:", error);
     console.error("Error details:", error.message);
     console.error("Error response:", error.response?.data);
-    
+
     return NextResponse.json(
-      { 
+      {
         error: "Failed to create customer portal",
-        details: error.message 
+        details: error.message,
       },
       { status: 500 }
     );

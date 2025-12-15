@@ -11,10 +11,7 @@ export async function POST(req: NextRequest) {
     });
 
     if (!session) {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     // Get the request body
@@ -68,11 +65,11 @@ export async function POST(req: NextRequest) {
     console.error("Checkout creation failed:", error);
     console.error("Error details:", error.message);
     console.error("Error response:", error.response?.data);
-    
+
     return NextResponse.json(
-      { 
+      {
         error: "Failed to create checkout",
-        details: error.message 
+        details: error.message,
       },
       { status: 500 }
     );
