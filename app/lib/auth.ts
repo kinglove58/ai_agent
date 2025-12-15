@@ -6,6 +6,7 @@ import { polar, checkout, portal } from "@polar-sh/better-auth";
 import { polarClient } from "./polar";
 
 export const auth = betterAuth({
+  baseURL: process.env.BETTER_AUTH_URL,
   plugins: [
     polar({
       client: polarClient,
@@ -13,7 +14,7 @@ export const auth = betterAuth({
       use: [
         checkout({
           authenticatedUsersOnly: true,
-          successUrl: "/upgrade",
+          successUrl: process.env.NEXT_PUBLIC_APP_URL + "/upgrade",
         }),
         portal(),
       ],

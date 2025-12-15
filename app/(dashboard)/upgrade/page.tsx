@@ -11,7 +11,7 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-const page = async () => {
+const UpgradePage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -35,4 +35,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default UpgradePage;
