@@ -102,3 +102,16 @@ export const meetings = pgTable("meetings", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
+
+export const meetingAiResponses = pgTable("meeting_ai_responses", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => nanoid()),
+  meetingId: text("meeting_id")
+    .notNull()
+    .references(() => meetings.id, { onDelete: "cascade" }),
+  userMessageId: text("user_message_id").notNull().unique(),
+  responseMessageId: text("response_message_id"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});

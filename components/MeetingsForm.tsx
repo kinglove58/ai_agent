@@ -21,6 +21,7 @@ import GenerateAvatar from "./generateImage";
 import { Input } from "./ui/input";
 import { NewAgentsDialogu } from "@/app/modules/dashboard/ui/component/NewAgentsDialogu";
 import { MeetingsGetOne } from "@/app/modules/meetings/types";
+import { useRouter } from "next/navigation";
 
 interface MeetingsFormProps {
   onSuccess: (id?: string) => void;
@@ -39,6 +40,7 @@ export const MeetingForm = ({
   onCancel,
   initialValues,
 }: MeetingsFormProps) => {
+  const router = useRouter();
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const [agentSearch, setAgentSearch] = useState("");
@@ -53,6 +55,9 @@ export const MeetingForm = ({
         await queryClient.invalidateQueries(
           trpc.meetings.getMany.queryOptions({})
         );
+        await queryClient.invalidateQueries(
+          trpc.premium.getFreeUsage.queryOptions()
+        );
 
         if (initialValues?.id) {
           await queryClient.invalidateQueries(
@@ -65,7 +70,9 @@ export const MeetingForm = ({
         toast.error(
           error.message || "There was an error creating the Meeting."
         );
-        // TODO: check if error code is forbidden and redirect to /upgrade
+        if (error.data?.code === "FORBIDDEN") {
+          router.push("/upgrades");
+        }
       },
     })
   );
@@ -92,7 +99,6 @@ export const MeetingForm = ({
         toast.error(
           error.message || "There was an error updating the meeting."
         );
-        // TODO: check if error code is forbidden and redirect to /upgrade
       },
     })
   );
