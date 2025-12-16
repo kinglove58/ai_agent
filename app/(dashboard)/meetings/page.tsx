@@ -46,7 +46,7 @@ const MeetingPage = async ({ searchParams }: Props) => {
 
 export default MeetingPage;
 
-export const MeetingsViewLoading = () => {
+const MeetingsViewLoading = () => {
   return (
     <LoadingState
       title="Loading Meetings"
@@ -55,7 +55,7 @@ export const MeetingsViewLoading = () => {
   );
 };
 
-export const MeetingsViewError = () => {
+const MeetingsViewError = () => {
   return (
     <ErrorState
       title="Error Loading Meetings"

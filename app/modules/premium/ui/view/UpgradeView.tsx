@@ -164,7 +164,7 @@ const PricingGrid = ({
           price={formatPrice(price)}
           description={product.description}
           priceSuffix={getPriceSuffix(price.recurringInterval)}
-          features={product.benefits.map((benefit) => benefit.description)}
+          features={product.benefits.map((benefit: any) => benefit.description)}
           badge={getBadge(product.metadata)}
         />
       );

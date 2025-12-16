@@ -48,11 +48,11 @@ export async function POST(req: NextRequest) {
 
     // Create checkout session
     const checkout = await polarClient.checkouts.create({
-      productPrice: productPriceId,
-      customer_id: customer.id,
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/upgrade?success=true`,
-      allow_discount_codes: true,
-    });
+      productPriceId: productPriceId,
+      customerId: customer.id,
+      successUrl: `${process.env.NEXT_PUBLIC_APP_URL}/upgrade?success=true`,
+      allowDiscountCodes: true,
+    } as any);
 
     console.log("Checkout created:", checkout.id);
     console.log("Checkout URL:", checkout.url);

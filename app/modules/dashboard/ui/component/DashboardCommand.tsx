@@ -1,4 +1,5 @@
 import { useTRPC } from "@/app/trpc/client";
+import GenerateAvatar from "@/components/generateImage";
 import {
   CommandResponsiveDialog,
   CommandEmpty,
@@ -46,10 +47,49 @@ const DashboardCommand = ({ open, setOpen }: Props) => {
       <CommandList>
         <CommandGroup heading="Meetings">
           {" "}
-          <CommandEmpty>No agents found</CommandEmpty>
+          <CommandEmpty>
+            <span className="text-muted-foreground text-sm">
+              {" "}
+              No meetings found
+            </span>
+          </CommandEmpty>
+          {meetings.data?.items.map((meeting) => (
+            <CommandItem
+              onSelect={() => {
+                router.push(`/meetings/${meeting.id}`);
+                setOpen(false);
+              }}
+              key={meeting.id}
+            >
+              {meeting.name}
+            </CommandItem>
+          ))}
         </CommandGroup>
-
-        <CommandItem>Test</CommandItem>
+        <CommandGroup heading="Agents">
+          {" "}
+          <CommandEmpty>
+            <span className="text-muted-foreground text-sm">
+              {" "}
+              No agents found
+            </span>
+          </CommandEmpty>
+          {agents.data?.items.map((agent) => (
+            <CommandItem
+              onSelect={() => {
+                router.push(`/agents/${agent.id}`);
+                setOpen(false);
+              }}
+              key={agent.id}
+            >
+              <GenerateAvatar
+                seed={agent.name}
+                variant="botttsNeutral"
+                className="size-5"
+              />
+              {agent.name}
+            </CommandItem>
+          ))}
+        </CommandGroup>
       </CommandList>
     </CommandResponsiveDialog>
   );
