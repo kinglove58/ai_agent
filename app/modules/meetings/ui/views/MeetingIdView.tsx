@@ -14,7 +14,6 @@ import { useConfirm } from "@/app/modules/agent/hooks/UseConfirm";
 import { useState } from "react";
 import UpcomingState from "../component/UpcomingState";
 import ActiveState from "../component/ActiveState";
-import CancelledState from "../component/CancelledState";
 import ProcessingState from "../component/ProcessingState";
 import { CompletedState } from "../component/CompletedState";
 import { UpdateMeetingsDialog } from "../component/UpdateMeetingDialogu";
@@ -61,7 +60,6 @@ export const MeetingIdView = ({ meetingId }: Props) => {
   const isUpcoming = data.status === "upcoming";
   const isProcessing = data.status === "processing";
   const isCompleted = data.status === "completed";
-  const isCancelled = data.status === "cancelled";
 
   return (
     <>
@@ -80,15 +78,8 @@ export const MeetingIdView = ({ meetingId }: Props) => {
           }}
           onRemove={handleRemoveMeeting}
         />
-        {isCancelled && <CancelledState meetingId={meetingId} />}
         {isActive && <ActiveState meetingId={meetingId} />}
-        {isUpcoming && (
-          <UpcomingState
-            meetingId={meetingId}
-            iscancelling={false}
-            onCancelMeeting={() => {}}
-          />
-        )}
+        {isUpcoming && <UpcomingState meetingId={meetingId} />}
         {isProcessing && <ProcessingState />}
         {isCompleted && <CompletedState data={data} />}
       </div>

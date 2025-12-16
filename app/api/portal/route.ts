@@ -25,14 +25,14 @@ export async function POST(req: NextRequest) {
 
     // Create customer portal session
     const portal = await polarClient.customerSessions.create({
-      customer_id: customer.id,
-    });
+      customerId: customer.id,
+    } as any);
 
     console.log("Portal session created:", portal.id);
-    console.log("Portal URL:", portal.customer_portal_url);
+    console.log("Portal URL:", portal.customerPortalUrl);
 
     return NextResponse.json({
-      url: portal.customer_portal_url,
+      url: portal.customerPortalUrl,
       sessionId: portal.id,
     });
   } catch (error: any) {

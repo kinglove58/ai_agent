@@ -291,7 +291,6 @@ export const meetingsRouter = createTRPCRouter({
             MeetingStatus.active,
             MeetingStatus.completed,
             MeetingStatus.processing,
-            MeetingStatus.cancelled,
           ])
           .nullish(),
       })

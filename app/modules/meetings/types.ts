@@ -8,7 +8,6 @@ export type MeetingsGetMany =
 export enum MeetingStatus {
   upcoming = "upcoming",
   completed = "completed",
-  cancelled = "cancelled",
   active = "active",
   processing = "processing",
 }

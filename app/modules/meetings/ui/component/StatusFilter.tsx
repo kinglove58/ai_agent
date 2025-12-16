@@ -50,16 +50,6 @@ const options = [
       </div>
     ),
   },
-  {
-    id: MeetingStatus.cancelled,
-    value: MeetingStatus.cancelled,
-    children: (
-      <div className="flex items-center gap-x-2 capitalize">
-        <CircleXIcon />
-        {MeetingStatus.cancelled}
-      </div>
-    ),
-  },
 ];
 
 export const StatusFilter = () => {
@@ -72,7 +62,6 @@ export const StatusFilter = () => {
       options={options}
       value={filters.status ?? ""}
       onSelect={(value) => setFilters({ status: value as MeetingStatus })}
-    //   onSearch={() => {}}
     />
   );
 };
