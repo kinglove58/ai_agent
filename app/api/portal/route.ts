@@ -14,32 +14,21 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    console.log("Creating customer portal for user:", session.user.id);
-
     // Get customer
     const customer = await polarClient.customers.getStateExternal({
       externalId: session.user.id,
     });
-
-    console.log("Customer ID:", customer.id);
 
     // Create customer portal session
     const portal = await polarClient.customerSessions.create({
       customerId: customer.id,
     } as any);
 
-    console.log("Portal session created:", portal.id);
-    console.log("Portal URL:", portal.customerPortalUrl);
-
     return NextResponse.json({
       url: portal.customerPortalUrl,
       sessionId: portal.id,
     });
   } catch (error: any) {
-    console.error("Portal creation failed:", error);
-    console.error("Error details:", error.message);
-    console.error("Error response:", error.response?.data);
-
     return NextResponse.json(
       {
         error: "Failed to create customer portal",

@@ -131,7 +131,6 @@ export const meetingsRouter = createTRPCRouter({
         },
       ]);
     } catch (error) {
-      console.error("Error upserting user to Stream:", error);
       // Continue anyway - token can still be generated
     }
 
@@ -148,7 +147,6 @@ export const meetingsRouter = createTRPCRouter({
       });
     }
 
-    console.log(`[Stream] Generated token for user ${ctx.auth.user.id}`);
     return token;
   }),
   update: protectedProcedure

@@ -159,12 +159,6 @@ export async function POST(req: NextRequest) {
       })
       .where(eq(meetings.id, meetingId))
       .returning();
-
-    if (updatedMeeting) {
-      console.log(
-        `[Stream] Recording ready for meeting ${meetingId}: ${event.call_recording.url}`
-      );
-    }
   } else if (eventType === "message.new") {
     const event = payload as MessageNewEvent;
     const userId = event.user?.id;

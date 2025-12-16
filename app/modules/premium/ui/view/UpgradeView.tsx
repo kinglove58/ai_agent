@@ -54,16 +54,13 @@ const getButtonConfig = (
           });
 
           const result = await response.json();
-          console.log("Portal result:", result);
 
           if (response.ok && result.url) {
             window.location.href = result.url;
           } else {
-            console.error("Portal failed:", result);
             alert(`Failed to open portal: ${result.error || "Unknown error"}`);
           }
         } catch (error) {
-          console.error("Failed to open customer portal:", error);
           alert("Failed to open customer portal. Please try again.");
         }
       },
@@ -80,16 +77,13 @@ const getButtonConfig = (
           });
 
           const result = await response.json();
-          console.log("Portal result:", result);
 
           if (response.ok && result.url) {
             window.location.href = result.url;
           } else {
-            console.error("Portal failed:", result);
             alert(`Failed to open portal: ${result.error || "Unknown error"}`);
           }
         } catch (error) {
-          console.error("Failed to open customer portal:", error);
           alert("Failed to open customer portal. Please try again.");
         }
       },
@@ -100,9 +94,6 @@ const getButtonConfig = (
     text: "Upgrade",
     onClick: async () => {
       try {
-        console.log("Attempting checkout with product:", product.id);
-        console.log("Price ID:", product.prices[0].id);
-
         // Call our custom checkout API
         const response = await fetch("/api/checkout", {
           method: "POST",
@@ -115,19 +106,16 @@ const getButtonConfig = (
         });
 
         const result = await response.json();
-        console.log("Checkout result:", result);
 
         if (response.ok && result.url) {
           // Redirect to Polar checkout page
           window.location.href = result.url;
         } else {
-          console.error("Checkout failed:", result);
           alert(
             `Failed to initiate checkout: ${result.error || "Unknown error"}`
           );
         }
       } catch (error) {
-        console.error("Checkout failed:", error);
         alert("Failed to initiate checkout. Please try again.");
       }
     },

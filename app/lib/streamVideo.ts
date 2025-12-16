@@ -13,9 +13,3 @@ if (!apiKey || !secret) {
 
 // Note: StreamClient expects (apiKey, secret) in that order
 export const StreamVideo = new StreamClient(apiKey, secret);
-
-// Log initialization for debugging (remove in production)
-console.log(
-  "[Stream] Initialized with API Key:",
-  apiKey.substring(0, 5) + "..."
-);
