@@ -9,7 +9,7 @@
     "lint": "next lint",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "dev:webhook": "ngrok http --url=nonmucilaginous-devon-bloodlessly.ngrok-free.dev 3000"
+    "dev:webhook": "https://mentorioai.vercel.app"
   },
   "dependencies": {
     "@dicebear/collection": "^9.2.4",
