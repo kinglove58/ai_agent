@@ -4,8 +4,6 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import LandingPage from "../page";
 
-
-
 const page = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -15,7 +13,7 @@ const page = async () => {
   }
   return (
     <div>
-      <LandingPage/>
+      <LandingPage />
     </div>
   );
 };
