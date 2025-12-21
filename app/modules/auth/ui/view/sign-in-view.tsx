@@ -54,7 +54,7 @@ export default function SignInView() {
       {
         email: data.email,
         password: data.password,
-        callbackURL: "/",
+        callbackURL: "/meetings",
       },
       {
         onSuccess: () => {
@@ -71,7 +71,7 @@ export default function SignInView() {
     setError(null);
     setPending(true);
     authClient.signIn.social(
-      { provider: provider, callbackURL: "/" },
+      { provider: provider, callbackURL: "/meetings" },
       {
         onSuccess: () => {
           setPending(false);

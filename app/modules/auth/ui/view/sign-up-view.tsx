@@ -69,7 +69,7 @@ export default function SignUpView() {
         email: data.email,
         password: data.password,
 
-        callbackURL: "/",
+        callbackURL: "/meetings",
       },
       {
         onSuccess: () => {
@@ -88,7 +88,7 @@ export default function SignUpView() {
     setPending(true);
 
     authClient.signIn.social(
-      { provider: provider, callbackURL: "/" },
+      { provider: provider, callbackURL: "/meetings" },
       {
         onSuccess: () => {
           setPending(false);

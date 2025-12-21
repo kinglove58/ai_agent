@@ -18,7 +18,7 @@ export const Hero: React.FC = () => {
                 tailored just for you.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start">
               <Link href="/sign-in">
                 <Button
                   variant="outline"
@@ -31,12 +31,15 @@ export const Hero: React.FC = () => {
                 </Button>
               </Link>
               <Link href="/sign-up">
-              <Button variant='outline' className="flex h-12 items-center justify-center gap-2 px-8 rounded-xl bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 text-[#111813] dark:text-white text-base font-bold transition-all hover:bg-gray-50 dark:hover:bg-gray-800">
-                <span className="material-symbols-outlined text-[22px] text-primary">
-                  play_circle
-                </span>
-                <span>See How It Works</span>
-              </Button>
+                <Button
+                  variant="outline"
+                  className="flex h-12 items-center justify-center gap-2 px-8 rounded-xl bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 text-[#111813] dark:text-white text-base font-bold transition-all hover:bg-gray-50 dark:hover:bg-gray-800"
+                >
+                  <span className="material-symbols-outlined text-[22px] text-primary">
+                    play_circle
+                  </span>
+                  <span>See How It Works</span>
+                </Button>
               </Link>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start pt-4">
@@ -91,8 +94,8 @@ export const Hero: React.FC = () => {
                 </div>
               </div>
 
-              <div className="absolute top-1/4 left-4 max-w-50 bg-white/50 p-3 rounded-2xl rounded-tl-none floating shadow-lg">
-                <div className="flex items-center gap-2 mb-1">
+              <div className="absolute top-1/4 left-4 md:max-w-40 max-w-25 bg-white/50 p-1 rounded-2xl rounded-tl-none floating shadow-lg">
+                <div className="flex items-center gap-1">
                   <span className="material-symbols-outlined text-primary text-[16px]">
                     smart_toy
                   </span>
@@ -100,14 +103,17 @@ export const Hero: React.FC = () => {
                     AI Mentor
                   </span>
                 </div>
-                <p className="text-xs font-medium dark:text-white leading-snug">
+                <p className="text-xs md:font-medium font-light dark:text-white">
                   I've analyzed your project structure. Here is a simplified
                   roadmap.
                 </p>
               </div>
 
               <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-3">
-                <button className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/10 hover:bg-white/30 transition">
+                <button
+                  type="button"
+                  className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/10 hover:bg-white/30 transition"
+                >
                   <span className="material-symbols-outlined text-[20px]">
                     mic_off
                   </span>
