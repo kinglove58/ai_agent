@@ -1,23 +1,30 @@
-import React from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Welcome Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Welcome to Your AI Agent Dashboard</h1>
-          <p className="text-lg text-gray-600">Manage your AI agents, schedule meetings, and streamline your workflow.</p>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            Welcome to Your AI Agent Dashboard
+          </h1>
+          <p className="text-lg text-gray-600">
+            Manage your AI agents, schedule meetings, and streamline your
+            workflow.
+          </p>
         </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">Total Agents</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-600">
+                Total Agents
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-blue-600">12</div>
@@ -27,7 +34,9 @@ const HomePage = () => {
 
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">Active Meetings</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-600">
+                Active Meetings
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-green-600">5</div>
@@ -37,7 +46,9 @@ const HomePage = () => {
 
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">Completed Tasks</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-600">
+                Completed Tasks
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-purple-600">47</div>
@@ -47,10 +58,17 @@ const HomePage = () => {
 
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">Premium Status</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-600">
+                Premium Status
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <Badge variant="secondary" className="bg-green-100 text-green-800">Active</Badge>
+              <Badge
+                variant="secondary"
+                className="bg-green-100 text-green-800"
+              >
+                Active
+              </Badge>
               <p className="text-xs text-gray-500 mt-1">Expires in 30 days</p>
             </CardContent>
           </Card>
@@ -104,7 +122,7 @@ const HomePage = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
